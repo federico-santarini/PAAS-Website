@@ -4,4 +4,10 @@
 
 <h1>PAAS Website - Glifi</h1>
 
+{% for glyph in GLYPHS %}
+<img src="{{glyph.glyphFile.url}}" width="10%" height="auto" alt="{{ glyph.parola }}">
+
+<p>{{glyph.parola}}</p>
+{%endfor%}
+
 {% endblock content %}
