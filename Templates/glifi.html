@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<form id="glyph-filter-form" method="GET">
+    {% csrf_token %}
+    {{ FORM }}
+  </form>
 
 <h1>PAAS Website - Glifi</h1>
 
@@ -9,5 +13,16 @@
 
 <p>{{glyph.parola}}</p>
 {%endfor%}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const form = $("#glyph-filter-form");
+
+        $("input[type='checkbox']", form).on("change", function () {
+            form.submit();
+        });
+    });
+</script>
 
 {% endblock content %}
