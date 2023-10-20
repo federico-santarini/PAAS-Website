@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+<h1>PAAS Website - Glifi</h1>
+
 <form id="glyph-filter-form" method="GET">
     {% csrf_token %}
     {{ FORM }}
   </form>
 
-<h1>PAAS Website - Glifi</h1>
-
 {% for glyph in GLYPHS %}
-<img src="{{glyph.glyphFile.url}}" width="10%" height="auto" alt="{{ glyph.parola }}">
+<div style="float: left;">
+<img src="{{glyph.glyphFile.url}}" width="100%" height="auto" alt="{{ glyph.parola }}">
 
 <p>{{glyph.parola}}</p>
+</div>
 {%endfor%}
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

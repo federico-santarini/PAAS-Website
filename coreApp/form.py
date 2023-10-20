@@ -2,16 +2,19 @@ from django import forms
 from coreApp.models import Glyph
 
 class GlyphFilterForm(forms.Form):
-    FUNZIONI_GRAMMATICALI = [
-        ("Sostantivo", "Sostantivo"),
-        ("Verbo", "Verbo"),
-        ("Avverbio", "Avverbio"),
-        ("Parola grammaticale", "Parola grammaticale"),
-        ("Aggettivo", "Aggettivo"),
-    ]    
+    
+    search = forms.CharField(max_length=100, required=False)
 
-    tags = forms.MultipleChoiceField(
-        choices=FUNZIONI_GRAMMATICALI,
+    categorieSemantiche = forms.MultipleChoiceField(
+        choices=Glyph.CATEGORIE_SEMANTICHE,
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
+        label="Categoria semantica"
+    )
+
+    funzioniGrammaticali = forms.MultipleChoiceField(
+        choices=Glyph.FUNZIONI_GRAMMATICALI,
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="Funzione grammaticale"
     )
