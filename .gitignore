@@ -4,6 +4,7 @@ env
 
 .DS_Store
 *.sqlite3
+*.svg
 .env
 _sketch_files_.*
 

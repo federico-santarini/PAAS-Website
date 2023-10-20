@@ -10,10 +10,25 @@ class Glyph(models.Model):
         ("Parola grammaticale", "Parola grammaticale"),
         ("Aggettivo", "Aggettivo"),
     ]    
+    CATEGORIE_SEMANTICHE = [
+        ("Abbigliamento", "Abbigliamento"),
+        ("Altro", "Altro"),
+        ("Animali", "Animali"),
+        ("Azioni", "Azioni"),
+        ("Bevande", "Bevande"),
+        ("Condizioni metereologiche", "Condizioni metereologiche"),
+        ("Mestieri", "Mestieri"),
+        ("Mezzi di trasporto", "Mezzi di trasporto"),
+        ("Oggetti", "Oggetti"),
+        ("Saluti", "Saluti"),
+        ("Sostanze", "Sostanze"),
+        ("Sport", "Sport"),
+
+
+    ]    
 
     #id
     id = models.IntegerField(primary_key=True)
-    
     # date/time creation
     pub_date = models.DateTimeField()
 
@@ -21,8 +36,9 @@ class Glyph(models.Model):
     parola = models.CharField(max_length=200)
 
     #categoria semantica
-    categoria_semantica = models.CharField(max_length=200)
-
+    categoria_semantica = models.CharField(max_length=200,
+                                           choices=CATEGORIE_SEMANTICHE,
+                                           )
     #funzione grammaticale
     funzione_grammaticale = models.CharField(max_length=200,
                                              choices=FUNZIONI_GRAMMATICALI,
