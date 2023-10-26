@@ -7,13 +7,12 @@
 <form id="glyph-filter-form" method="GET">
     {% csrf_token %}
     {{ FORM }}
-  </form>
+</form>
 
 {% for glyph in GLYPHS %}
-<div style="float: left;">
-<img src="{{glyph.glyphFile.url}}" width="100%" height="auto" alt="{{ glyph.parola }}">
-
-<p>{{glyph.parola}}</p>
+<div style="float: left; width: 10%;">
+    <img src="{{glyph.glyphFile.url}}" width="100%" height="auto" alt="{{ glyph.parola }}">
+    <p style="text-align: center;">{{glyph.parola}}</p>
 </div>
 {%endfor%}
 

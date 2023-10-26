@@ -7,7 +7,7 @@ def index(request):
     return render(request, 'index.html')
 
 def glifi(request):
-    GLYPHS = Glyph.objects.all()
+    GLYPHS = Glyph.objects.all().order_by('parola')
 
     if request.method == "GET":
         form = GlyphFilterForm(request.GET)
