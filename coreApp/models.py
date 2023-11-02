@@ -54,3 +54,9 @@ class Glyph(models.Model):
         return f"{self.id : 04d} – {self.parola}"
 
 
+class SelectedImage(models.Model):
+    foreignGlyph = models.ForeignKey(Glyph, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.foreignGlyph.id : 04d} – {self.foreignGlyph.parola}"
+

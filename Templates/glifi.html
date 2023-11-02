@@ -9,12 +9,32 @@
     {{ FORM }}
 </form>
 
-{% for glyph in GLYPHS %}
+
+<!-- <form id="glyph-download-form" method="GET" action=".">
+    {% csrf_token %}
+    {% for glyph in GLYPHS %}
 <div style="float: left; width: 10%;">
+    <input type="submit" value="{{glyph.parola}}" name="glyph-to-download">
     <img src="{{glyph.glyphFile.url}}" width="100%" height="auto" alt="{{ glyph.parola }}">
     <p style="text-align: center;">{{glyph.parola}}</p>
 </div>
 {%endfor%}
+
+</form> -->
+<form method="post" action="{% url 'download_selected_images' %}">
+    {% csrf_token %}
+    <ul>
+        {% for glyph in GLYPHS %}
+            <li style="float: left; width: 10%;">
+                <input type="checkbox" name="selected_images" value="{{ glyph.id }}">
+                <img src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}">
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="submit">Download Selected Images</button>
+</form>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
