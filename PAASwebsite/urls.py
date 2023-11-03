@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from coreApp.views import index, collabora, community, glifi, licenza, progetto,download_selected_images
+from coreApp.views import index, collabora, community, glifi, licenza, progetto,download_selected_images, download_all_images
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,7 +30,8 @@ urlpatterns = [
     path('licenza', licenza, name='licenza'),
     path('progetto', progetto, name='progetto'),
     path('index', index, name='index'),
-    path('download-selected/', download_selected_images, name='download_selected_images')
+    path('download-selected/', download_selected_images, name='download_selected_images'),
+    path('download-all/', download_all_images, name='download_all_images')
 
 ]
 

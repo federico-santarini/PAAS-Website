@@ -88,3 +88,19 @@ def download_selected_images(request):
 
     return response
     # return HttpResponse("Hello, World!")
+
+def download_all_images(request):
+    
+    all_glyphs = Glyph.objects.all()
+    
+    image_paths = [glyph.glyphFile.path for glyph in all_glyphs]
+
+    zip_buffer = io.BytesIO()
+    with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
+        for image_path in image_paths:
+            zip_file.write(image_path, os.path.basename(image_path))
+
+    response = HttpResponse(zip_buffer.getvalue(), content_type='application/zip')
+    response['Content-Disposition'] = f'attachment; filename=all_glyphs.zip'
+
+    return response
