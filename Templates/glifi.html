@@ -6,32 +6,25 @@
 
 <form id="glyph-filter-form" method="GET">
     {% csrf_token %}
-    {{ FORM }}
+    {{ FORM.as_p }}
 </form>
 
+<form id="glyph-downloadall-form" action="{% url 'download_all_images' %}">
+    <input type="submit" value="Scarica tutti i glifi" />
+</form>
 
-<!-- <form id="glyph-download-form" method="GET" action=".">
-    {% csrf_token %}
-    {% for glyph in GLYPHS %}
-<div style="float: left; width: 10%;">
-    <input type="submit" value="{{glyph.parola}}" name="glyph-to-download">
-    <img src="{{glyph.glyphFile.url}}" width="100%" height="auto" alt="{{ glyph.parola }}">
-    <p style="text-align: center;">{{glyph.parola}}</p>
-</div>
-{%endfor%}
-
-</form> -->
-<form method="post" action="{% url 'download_selected_images' %}">
+</form>
+<form id="glyph-selection-form" method="post" action="{% url 'download_selected_images' %}">
     {% csrf_token %}
     <ul>
         {% for glyph in GLYPHS %}
             <li style="float: left; width: 10%;">
-                <input type="checkbox" name="selected_images" value="{{ glyph.id }}">
+                <input class="checkbox-save-state" id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}">
                 <img src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}">
             </li>
         {% endfor %}
     </ul>
-    <button type="submit">Download Selected Images</button>
+    <button type="submit">Scarica i glifi selezionati</button>
 </form>
 
 
@@ -46,5 +39,37 @@
         });
     });
 </script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+
+<script>
+  $("#checkAll").on("change", function() {
+    $(':checkbox').not(this).prop('checked', this.checked);
+  });
+
+  $(":checkbox").on("change", function(){
+    var checkboxValues = {};
+    $(":checkbox").each(function(){
+      checkboxValues[this.id] = this.checked;
+    });
+    $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
+  });
+
+  function repopulateCheckboxes(){
+    var checkboxValues = $.cookie('checkboxValues');
+    if(checkboxValues){
+      Object.keys(checkboxValues).forEach(function(element) {
+        var checked = checkboxValues[element];
+        $("#" + element).prop('checked', checked);
+      });
+    }
+  }
+
+  $.cookie.json = true;
+  repopulateCheckboxes();
+</script>
+
+  
 
 {% endblock content %}

@@ -3,3 +3,15 @@
 body{
     font-family: 'Titillium Web', sans-serif;
 }
+
+.cyan{
+    background-color: #7AF6F1;
+}
+.light-cyan{
+    background-color: #F1FEFD;
+    padding: 120px 160px 120px 160px;
+    
+}
+.grey{
+    background-color: #EEEEEE;
+}
