@@ -1,17 +1,28 @@
 from django.db import models
 from django.contrib.sessions.models import Session
+from django.core.exceptions import ValidationError
+
+
 
 
 # Create your models here.
 
 class Glyph(models.Model):
+    FIGURE_RETORICHE = [
+        ("Analogia", "Analogia"),
+        ("Letterale", "Letterale"),
+        ("Metonimina", "Metonimina"),
+        ("Sineddoche", "Sineddoche"),
+        ("Simbolico", "Simbolico"),
+    ]    
     FUNZIONI_GRAMMATICALI = [
         ("Sostantivo", "Sostantivo"),
         ("Verbo", "Verbo"),
         ("Avverbio", "Avverbio"),
         ("Parola grammaticale", "Parola grammaticale"),
         ("Aggettivo", "Aggettivo"),
-    ]    
+    ]
+
     CATEGORIE_SEMANTICHE = [
         ("Abbigliamento", "Abbigliamento"),
         ("Altro", "Altro"),
@@ -25,17 +36,20 @@ class Glyph(models.Model):
         ("Saluti", "Saluti"),
         ("Sostanze", "Sostanze"),
         ("Sport", "Sport"),
+    ] 
 
 
-    ]    
-
-    #id
-    id = models.IntegerField(primary_key=True)
     # date/time creation
     pub_date = models.DateTimeField()
 
+    #id
+    id = models.IntegerField(primary_key=True, default=0)
+    id_variante = models.IntegerField(default=0)
+    variante = models.BooleanField(default=False,verbose_name="is alternative")
+
     #parola
     parola = models.CharField(max_length=200)
+    parola_ENG = models.CharField(max_length=200, default="")
 
     #categoria semantica
     categoria_semantica = models.CharField(max_length=200,
@@ -47,7 +61,11 @@ class Glyph(models.Model):
                                              )
 
     #figura retorica
-    figura_retorica = models.CharField(max_length=200)
+    figura_retorica = models.CharField(max_length=200,
+                                           choices=FIGURE_RETORICHE,
+                                           )
+    presenza_umana = models.BooleanField(default=False)
+    approvato = models.BooleanField(default=True)
 
     # file .svg
     glyphFile = models.FileField(upload_to="glyphs/")
