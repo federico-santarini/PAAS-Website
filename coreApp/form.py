@@ -7,14 +7,14 @@ class GlyphFilterForm(forms.Form):
 
     categorieSemantiche = forms.MultipleChoiceField(
         choices=Glyph.CATEGORIE_SEMANTICHE,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-save-state'}),
         required=False,
-        label="Categoria semantica"
+        label="Categoria semantica",
     )
 
     funzioniGrammaticali = forms.MultipleChoiceField(
         choices=Glyph.FUNZIONI_GRAMMATICALI,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'checkbox-save-state'}),
         required=False,
-        label="Funzione grammaticale"
+        label="Funzione grammaticale",
     )
