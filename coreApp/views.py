@@ -1,21 +1,35 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.sessions.models import Session
 from coreApp.models import Glyph, SelectedImage
 from coreApp.form import GlyphFilterForm
 import io
 import zipfile
 import os
 
+from django.shortcuts import redirect
+
 def index(request):
+    if not request.session.session_key:
+        request.session.create()
+        print('!!! NEW SESSION !!!')
+
+    print(request.session.session_key)
+
     return render(request, 'index.html')
 
 def glifi(request):
-    GLYPHS = Glyph.objects.all().order_by('parola')
-    form = GlyphFilterForm(request.GET)
+    # Get the current session key
+    session_key = request.session.session_key
+    session_instance = Session.objects.get(session_key=session_key)
 
+    GLYPHS = Glyph.objects.all().order_by('parola')
+    SELECTED_IMAGES_FOR_SESSION = SelectedImage.objects.filter(session=session_instance)
+    
+    form = GlyphFilterForm(request.GET)
+    
     
     if request.method == "GET":
-        # form = GlyphFilterForm(request.GET)
         if form.is_valid():
             query_search = form.cleaned_data.get('search')
             if query_search:
@@ -30,22 +44,28 @@ def glifi(request):
                 GLYPHS = GLYPHS.filter(funzione_grammaticale__in=query_funzioniGrammaticali)
     
     if request.method == "POST":
-        # pass
+
         selected_image_ids = request.POST.getlist("selected_images")
-        #print(selected_image_ids)
-        # Clear previously selected images for the current user
-        SelectedImage.objects.all().delete()
+        # for image_id in selected_image_ids:
+        #     selected_image = SelectedImage(foreignGlyph_id=image_id,
+        #                                            session=session_instance)
+        #     selected_image.save()
 
-        # Add the newly selected images
         for image_id in selected_image_ids:
-            selected_image = SelectedImage(foreignGlyph_id=image_id)
-            selected_image.save()
-
-    selected_images = SelectedImage.objects.all()
+            try:
+                SelectedImage.objects.get(foreignGlyph_id=image_id,
+                                          session=session_instance)
+            # Handle the existing entry (e.g., update or skip)
+            except:
+                # Create a new SelectedImage instance
+                selected_image = SelectedImage(foreignGlyph_id=image_id,
+                                               session=session_instance)
+                selected_image.save()
 
     context = {
         'GLYPHS': GLYPHS,
         'FORM': form,
+        "SELECTED_GLYPHS": SELECTED_IMAGES_FOR_SESSION,
     }
 
     return render(request, 'glifi.html', context)
@@ -63,20 +83,18 @@ def progetto(request):
     return render(request, 'progetto.html')
 
 def download_selected_images(request):
-    selected_image_ids = request.POST.getlist("selected_images")
-    print(selected_image_ids)
-    
-    # Clear previously selected images for the current user
-    SelectedImage.objects.all().delete()
 
-    # Add the newly selected images
-    for image_id in selected_image_ids:
-        selected_image = SelectedImage(foreignGlyph_id=image_id)
-        selected_image.save()
+    # Get the current session key
+    session_key = request.session.session_key
 
-    selected_images = SelectedImage.objects.all()
+    # Retrieve the corresponding Session instance
+    session_instance = Session.objects.get(session_key=session_key)
+
+    # Filter SelectedImage instances based on the session
+    selected_images_for_session = SelectedImage.objects.filter(session=session_instance)
+
     
-    image_paths = [glyph.foreignGlyph.glyphFile.path for glyph in selected_images]
+    image_paths = [glyph.foreignGlyph.glyphFile.path for glyph in selected_images_for_session]
 
     zip_buffer = io.BytesIO()
     with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
@@ -85,6 +103,9 @@ def download_selected_images(request):
 
     response = HttpResponse(zip_buffer.getvalue(), content_type='application/zip')
     response['Content-Disposition'] = f'attachment; filename=selected_images.zip'
+    
+    # Clear previously selected images for the current session
+    SelectedImage.objects.filter(session=session_instance).delete()
 
     return response
     # return HttpResponse("Hello, World!")

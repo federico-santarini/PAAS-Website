@@ -1,61 +1,76 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
+  <h1>PAAS Website - Glifi</h1>
 
-<h1>PAAS Website - Glifi</h1>
-
-<form id="glyph-filter-form" method="GET">
+  <form id="glyph-filter-form" method="GET">
     {% csrf_token %}
     {{ FORM.as_p }}
-</form>
+  </form>
 
-<form id="glyph-downloadall-form" action="{% url 'download_all_images' %}">
+  <form id="glyph-downloadall-form" action="{% url 'download_all_images' %}">
     <input type="submit" value="Scarica tutti i glifi" />
-</form>
+  </form>
 
-</form>
-<form id="glyph-selection-form" method="post" action="{% url 'download_selected_images' %}">
+  <ul>
+    {% for glyph in SELECTED_GLYPHS %}
+      <li>"{{ glyph.foreignGlyph.parola }}"</li>
+    {% endfor %}
+  </ul>
+
+<form id="glyph-selection-form" method="post" action="{% url 'glifi' %}">
     {% csrf_token %}
-    <ul>
-        {% for glyph in GLYPHS %}
-            <li style="float: left; width: 10%;">
-                <input class="checkbox-save-state" id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}">
-                <img src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}">
-            </li>
-        {% endfor %}
-    </ul>
-    <button type="submit">Scarica i glifi selezionati</button>
-</form>
+      {% for glyph in GLYPHS %}
+      <div style="float: left; width: 10%;">
+          <input id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}" />
+          <img src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}" />
+        </div>
+          {% endfor %}
+      
+  </form>
 
+  {% comment %} <form id="glyph-downloadSelection-form" action="{% url 'download_selected_images' %}">
+    <input type="submit" value="Scarica i glifi selezionati" />
+  </form> {% endcomment %}
+  <a href="{% url 'download_selected_images' %}">download_selected_images</a>
 
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+  <script>
     $(document).ready(function () {
-        const form = $("#glyph-filter-form");
+      const form = $('#glyph-filter-form')
+    
+      $("input[type='checkbox']", form).on('change', function () {
+        form.submit()
+      })
+    })
+  </script>
+  <script>
+    $(document).ready(function () {
+      const form = $('#glyph-selection-form')
+    
+      $("input[type='checkbox']", form).on('change', function () {
+        form.submit()
+      })
+    })
+  </script>  
 
-        $("input[type='checkbox']", form).on("change", function () {
-            form.submit();
-        });
-    });
-</script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
-
-<script>
-  $("#checkAll").on("change", function() {
-    $(':checkbox').not(this).prop('checked', this.checked);
+ {% comment %} <script>
+  $(".checkAllClass").on("change", function() {
+    $('.checkboxClass').not(this).prop('checked', this.checked);
   });
-
-  $(":checkbox").on("change", function(){
+  
+  $(".checkboxClass").on("change", function(){
     var checkboxValues = {};
-    $(":checkbox").each(function(){
+    $(".checkboxClass").each(function(){
       checkboxValues[this.id] = this.checked;
     });
-    $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' })
+    $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' });
   });
-
+  
   function repopulateCheckboxes(){
     var checkboxValues = $.cookie('checkboxValues');
     if(checkboxValues){
@@ -65,11 +80,9 @@
       });
     }
   }
-
+  
   $.cookie.json = true;
   repopulateCheckboxes();
-</script>
-
   
-
-{% endblock content %}
+</script> {% endcomment %}
+{% endblock %}

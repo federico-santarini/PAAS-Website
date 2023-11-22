@@ -1,51 +1,52 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-{% load custom_tags %}
+  {% load custom_tags %}
 
-<div class="light-cyan">
-    <h1>PASS è il progetto di un sistema di scrittura <br>
-        finalizzato a supportare Bisogni Comunicativi Complessi,<br>
-        nell'ambito di terapie abilitative che prevedano<br>
-        l'uso della Comunicazione Aumentativa Alternativa.</h1>
-</div>
+  <div class="light-cyan">
+    <div>
+      <div>
+        <h1>
+          PASS è il progetto di un sistema di scrittura <br />
+          finalizzato a supportare Bisogni Comunicativi Complessi,<br />
+          nell'ambito di terapie abilitative che prevedano<br />
+          l'uso della Comunicazione Aumentativa Alternativa.
+        </h1>
+      </div>
+      <div>
+        <img src="" alt="">
+      </div>
+    </div>
+  </div>
 
-<div class="white">
+  <div class="white">
     <h2>Picture Augmentative Synsemic System</h2>
-    <p>PASS è il progetto di un sistema di scrittura nato nel 2019 e rilasciato sotto licenza free software. Il sistema
-        è
-        finalizzato a supportare Bisogni Comunicativi Complessi, in particolare nell ambito di terapie abilitative che
-        prevedano l'uso della Comunicazione Aumentativa Alternativa.</p>
+    <p>PASS è il progetto di un sistema di scrittura nato nel 2019 e rilasciato sotto licenza free software. Il sistema è finalizzato a supportare Bisogni Comunicativi Complessi, in particolare nell ambito di terapie abilitative che prevedano l'uso della Comunicazione Aumentativa Alternativa.</p>
     <a href="{% url 'glifi' %}">Scopri i glifi PASS</a>
 
     <h2>Obiettivi del progetto</h2>
-    <p>Il progetto PASS si propone di creare un sistema di segni di natura prevalentemente pittografica e combinatoria,
-        dotato di una sistematica coerenza visiva interna e di un sistema di regole di composizione non lineari.</p>
+    <p>Il progetto PASS si propone di creare un sistema di segni di natura prevalentemente pittografica e combinatoria, dotato di una sistematica coerenza visiva interna e di un sistema di regole di composizione non lineari.</p>
     <a href="{% url 'progetto' %}">Scopri il progetto</a>
-</div>
+  </div>
 
-<div class="grey">
+  <div class="grey">
     <h2>Scopri i gligi PASS</h2>
     <a href="{% url 'glifi' %}">Scopri tutti i glifi</a>
-</div>
+  </div>
 
-<div class="white">
+  <div class="white">
     <h2>Un progetto aperto</h2>
-    <p>PASS nasce dagli sforzi di una community di persone con competenze linguistiche, cliniche, grafiche e
-        informatiche che collaborano per sviluppare un nuovo sistema di CAA adatto alla sperimentazione empirica e
-        basato sul design e sulla ricerca scientifica.</p>
+    <p>PASS nasce dagli sforzi di una community di persone con competenze linguistiche, cliniche, grafiche e informatiche che collaborano per sviluppare un nuovo sistema di CAA adatto alla sperimentazione empirica e basato sul design e sulla ricerca scientifica.</p>
     <a href="{% url 'community' %}">Scopri la community</a>
     <h3>Approccio multidisciplinare</h3>
     <h3>Scientific and research based</h3>
-</div>
+  </div>
 
-{% CTA_rapida_licenza %}
+  {% CTA_rapida_licenza %}
 
-<div  class="white">
+  <div class="white">
     <h2>Scopri gli ultimi glifi</h2>
     <a href="{% url 'glifi' %}">Scopri tutti i glifi</a>
-</div>
-{% CTA_completa_community %}
-
-
-{% endblock content %}
+  </div>
+  {% CTA_completa_community %}
+{% endblock %}

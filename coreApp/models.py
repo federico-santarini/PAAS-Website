@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.sessions.models import Session
+
 
 # Create your models here.
 
@@ -56,7 +58,10 @@ class Glyph(models.Model):
 
 class SelectedImage(models.Model):
     foreignGlyph = models.ForeignKey(Glyph, on_delete=models.CASCADE)
+    session = models.ForeignKey(Session, on_delete=models.SET_NULL, blank=True, null=True)
     
     def __str__(self):
         return f"{self.foreignGlyph.id : 04d} – {self.foreignGlyph.parola}"
 
+    class Meta:
+        unique_together = ('foreignGlyph', 'session')
