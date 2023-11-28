@@ -7,6 +7,8 @@ import io
 import zipfile
 import os
 
+from django.utils.translation import get_language, activate
+
 from django.shortcuts import redirect
 
 def index(request):

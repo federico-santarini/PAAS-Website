@@ -15,28 +15,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
-from coreApp.views import index, collabora, community, glifi, licenza, progetto,download_selected_images, download_all_images
+from django.urls import include, path, re_path
 
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
+    # path('',include('coreApp.urls')),
     path("admin/", admin.site.urls),
-    path('', index, name='home'),
-    path('collabora', collabora, name='collabora'),
-    path('community', community, name='community'),
-    path('glifi', glifi, name='glifi'),
-    path('licenza', licenza, name='licenza'),
-    path('progetto', progetto, name='progetto'),
-    path('index', index, name='index'),
-    path('download-selected/', download_selected_images, name='download_selected_images'),
-    path('download-all/', download_all_images, name='download_all_images')
-
 ]
+
+urlpatterns +=i18n_patterns(
+    path('',include('coreApp.urls')),
+)   
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
+if 'rosetta' in settings.INSTALLED_APPS:
+    urlpatterns += [
+        re_path(r'^rosetta/', include('rosetta.urls'))
+    ]

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,12 @@
         <a href="{% url 'community' %}">Community</a>
         <a href="{% url 'collabora' %}">Collabora</a>
         <a href="{% url 'licenza' %}">Licenza</a>
-
+            {% get_current_language as LANGUAGE_CODE%}
+            {% get_available_languages as LANGUAGES%}
+            {% get_language_info_list for LANGUAGES as languages%}
+            {% for lang in languages %}
+                <a href="/{{lang.code}}/">{{lang.code}}</a>
+            {% endfor %}
     </div>
 
     <div class="content">

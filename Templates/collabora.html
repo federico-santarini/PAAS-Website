@@ -1,10 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
+
 
 {% block content %}
 {% load custom_tags %}
 
 
-<h1>PAAS Website - Collabora</h1>
+<h1>{% trans 'PAAS Website - Collabora' %}</h1>
 
 {% CTA_completa_community %}
 {% endblock content %}
