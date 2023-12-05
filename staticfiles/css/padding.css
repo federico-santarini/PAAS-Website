@@ -1,0 +1,36 @@
+:root {
+    --spacer: 10px;
+  }
+  
+  .pt-120 {
+    padding-top: 120px;
+  }
+  .pb-120 {
+    padding-bottom: 120px;
+  }
+  .py-120 {
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+  
+  .pt-60 {
+    padding-top: 60px;
+  }
+  .pb-60 {
+    padding-bottom: 60px;
+  }
+  .py-60 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .pt-80 {
+    padding-top: 80px;
+  }
+  .pb-80 {
+    padding-bottom: 80px;
+  }
+  .py-80 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }

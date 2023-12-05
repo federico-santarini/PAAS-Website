@@ -1,56 +1,211 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {% load custom_tags %}
-  {% load i18n %}
+{% load custom_tags %}
+{% load i18n %}
+{% load static %}
 
 
-  <div class="light-cyan">
-    <div>
-      <div>
-        <h1>
-          {% blocktrans %}
-          PASS è il progetto di un sistema di scrittura <br />
-          finalizzato a supportare Bisogni Comunicativi Complessi,<br />
-          nell'ambito di terapie abilitative che prevedano<br />
-          l'uso della Comunicazione Aumentativa Alternativa.
-          {% endblocktrans %}
-        </h1>
-      </div>
-      <div>
-        <img src="" alt="">
-      </div>
+<div class="row light-cyan justify-content-center">
+  <div class="col-lg-9 py-120">
+    <h1>
+      {% blocktrans %}
+      PASS è il progetto di un sistema di scrittura <br />
+      finalizzato a supportare Bisogni Comunicativi Complessi,<br />
+      nell'ambito di terapie abilitative che prevedano<br />
+      l'uso della Comunicazione Aumentativa Alternativa.
+      {% endblocktrans %}
+    </h1>
+  </div>
+</div>
+
+<div class="row justify-content-center pt-120 pb-60">
+  <div class="col-lg-4">
+    <h2>Picture Augmentative Synsemic System</h2>
+  </div>
+  <div class="col-lg-4">
+    <p>PASS è il progetto di un sistema di scrittura nato nel 2019 e rilasciato sotto licenza free software. Il sistema
+      è finalizzato a supportare Bisogni Comunicativi Complessi, in particolare nell ambito di terapie abilitative che
+      prevedano l'uso della Comunicazione Aumentativa Alternativa.</p>
+    <a class="round-black-button" href="{% url 'glifi' %}">Scopri i glifi PASS</a>
+  </div>
+</div>
+<div class="row justify-content-center pt-60 pb-120">
+  <div class="col-lg-4">
+    <h2>Obiettivi del progetto</h2>
+  </div>
+  <div class="col-lg-4">
+    <p>Il progetto PASS si propone di creare un sistema di segni di natura prevalentemente pittografica e combinatoria,
+      dotato di una sistematica coerenza visiva interna e di un sistema di regole di composizione non lineari.</p>
+    <a class="round-black-button" href="{% url 'progetto' %}">Scopri il progetto</a>
+  </div>
+</div>
+<!-- ||||||||||||||||||||||||||||||||||| -->
+<div class="grey">
+  <div class="row justify-content-center pt-120 pb-80">
+    <div class="col-lg-4 text-center">
+      <h2>Scopri i glifi PASS</h2>
     </div>
   </div>
 
-  <div class="white">
-    <h2>Picture Augmentative Synsemic System</h2>
-    <p>PASS è il progetto di un sistema di scrittura nato nel 2019 e rilasciato sotto licenza free software. Il sistema è finalizzato a supportare Bisogni Comunicativi Complessi, in particolare nell ambito di terapie abilitative che prevedano l'uso della Comunicazione Aumentativa Alternativa.</p>
-    <a href="{% url 'glifi' %}">Scopri i glifi PASS</a>
+  <div class="row justify-content-center p-0">
+    <div class="row justify-content-center p-0">
 
-    <h2>Obiettivi del progetto</h2>
-    <p>Il progetto PASS si propone di creare un sistema di segni di natura prevalentemente pittografica e combinatoria, dotato di una sistematica coerenza visiva interna e di un sistema di regole di composizione non lineari.</p>
-    <a href="{% url 'progetto' %}">Scopri il progetto</a>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 m-3 p-0">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="card-title">Azioni</h4>
+              </div>
+              <div class="col-6">
+                <a class="" href="#"><img src="{% static '/assets/icons/arrow-right.svg' %}" alt=""></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <img class="" src="{% static '/assets/icons/Card_categoria attività.svg' %}" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <div class="grey">
-    <h2>Scopri i gligi PASS</h2>
-    <a href="{% url 'glifi' %}">Scopri tutti i glifi</a>
+  <div class="row justify-content-center pt-80 pb-120">
+    <div class="col-lg-4 text-center">
+      <a class="round-black-button" href="{% url 'glifi' %}">Scopri tutti i glifi</a>
+    </div>
   </div>
+</div>
 
-  <div class="white">
+<div class="row justify-content-center py-120">
+  <div class="col-lg-4">
     <h2>Un progetto aperto</h2>
-    <p>PASS nasce dagli sforzi di una community di persone con competenze linguistiche, cliniche, grafiche e informatiche che collaborano per sviluppare un nuovo sistema di CAA adatto alla sperimentazione empirica e basato sul design e sulla ricerca scientifica.</p>
-    <a href="{% url 'community' %}">Scopri la community</a>
-    <h3>Approccio multidisciplinare</h3>
-    <h3>Scientific and research based</h3>
+    <p>PASS nasce dagli sforzi di una community di persone con competenze linguistiche, cliniche, grafiche e
+      informatiche
+      che collaborano per sviluppare un nuovo sistema di CAA adatto alla sperimentazione empirica e basato sul
+      design e
+      sulla ricerca scientifica.</p>
+    <a class="round-black-button" href="{% url 'community' %}">Scopri la community</a>
+  </div>
+  <div class="col-lg-4">
+    <img src="{% static '/assets/icons/check.svg' %}" alt="">
+    <h4>Approccio multidisciplinare</h4>
+    <img src="{% static '/assets/icons/check.svg' %}" alt="">
+    <h4>Scientific and research based</h4>
+  </div>
+</div>
+
+{% CTA_rapida_licenza %}
+
+<div class="">
+  <div class="row justify-content-center pt-5 pb-3">
+    <div class="col-lg-4 text-center">
+      <h2>Scopri gli ultimi glifi</h2>
+    </div>
   </div>
 
-  {% CTA_rapida_licenza %}
-
-  <div class="white">
-    <h2>Scopri gli ultimi glifi</h2>
-    <a href="{% url 'glifi' %}">Scopri tutti i glifi</a>
-  </div>
-  {% CTA_completa_community %}
+{% comment %} <div class="white">
+  <h2>Scopri gli ultimi glifi</h2>
+  <a href="{% url 'glifi' %}">Scopri tutti i glifi</a>
+</div> {% endcomment %}
+{% CTA_completa_community %}
 {% endblock %}

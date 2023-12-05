@@ -6,33 +6,75 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>PAAS Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PASS Website</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/padding.css' %}">
 </head>
 
 <body>
-    <!-- responsive top navbar-->
-    <div class="topnav" id="myTopnav">
-        <a href="{% url 'home' %}">PAAS</a>
-        <a href="{% url 'glifi' %}">Glifi</a>
-        <a href="{% url 'progetto' %}">Progetto</a>
-        <a href="{% url 'community' %}">Community</a>
-        <a href="{% url 'collabora' %}">Collabora</a>
-        <a href="{% url 'licenza' %}">Licenza</a>
-            {% get_current_language as LANGUAGE_CODE%}
-            {% get_available_languages as LANGUAGES%}
-            {% get_language_info_list for LANGUAGES as languages%}
-            {% for lang in languages %}
-                <a href="/{{lang.code}}/">{{lang.code}}</a>
-            {% endfor %}
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+    </script>
 
-    <div class="content">
-        <div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Get the current path
+            var currentPath = window.location.pathname;
+
+            // Remove trailing slash if present
+            currentPath = currentPath.replace(/\/$/, "");
+
+            // Get all navbar links
+            var navbarLinks = document.querySelectorAll(".navbar-nav a.nav-link");
+
+            // Iterate over each link
+            navbarLinks.forEach(function (link) {
+                // Remove the 'active' class from all links
+                link.classList.remove("active");
+
+                // Check if the link's href matches the current path
+                if (link.getAttribute("href") === currentPath) {
+                    // Add the 'active' class to the matching link
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+
+
+    <!-- responsive top navbar-->
+    <nav class="navbar navbar-expand-lg" style="background-color: #fff;">
+        <div class="container">
+            <a class="col-4 navbar-brand" href="{% url 'home' %}"><h5>PASS</h5><h6>Picture Augmentative Synsemic System</h6></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="{% url 'glifi' %}"><h6>Glifi</h6></a>
+                    <a class="nav-link" href="{% url 'progetto' %}"><h6>Progetto</h6></a>
+                    <a class="nav-link" href="{% url 'community' %}"><h6>Community</h6></a>
+                    <a class="nav-link" href="{% url 'collabora' %}"><h6>Collabora</h6></a>
+                    <a class="nav-link" href="{% url 'licenza' %}"><h6>Licenza</h6></a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    {% get_current_language as LANGUAGE_CODE%}
+                    {% get_available_languages as LANGUAGES%}
+                    {% get_language_info_list for LANGUAGES as languages%}
+                    {% for lang in languages %}
+                    <a class="nav-link" href="/{{ lang.code }}/{{request.get_full_path|slice:"4:"}}"><h6>{{lang.code|upper}}</h6></a>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+    </nav>
+    <div class="container-fluid" id="main-div">
             {% block content %}
             {% endblock content %}
-        </div>
     </div>
 
     <div class="footer">

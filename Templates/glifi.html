@@ -1,88 +1,220 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-  <h1>PAAS Website - Glifi</h1>
+<style>
+  body {
+    background-color: #EEEEEE;
+  }
+</style>
 
-  <form id="glyph-filter-form" method="GET">
-    {% csrf_token %}
-    {{ FORM.as_p }}
-  </form>
+<!-- Render the search field -->
+<div class="row">
+  <label for="{{ FORM.search.id_for_label }}"><h4>Ricerca per parola</h4></label>
+</div>
+<div class="row">
+  {{ FORM.search }}
+</div>
 
-  <form id="glyph-downloadall-form" action="{% url 'download_all_images' %}">
-    <input type="submit" value="Scarica tutti i glifi" />
-  </form>
-
-  <ul>
-    {% for glyph in SELECTED_GLYPHS %}
-      <li>"{{ glyph.foreignGlyph.parola }}"</li>
-    {% endfor %}
-  </ul>
-
-<form id="glyph-selection-form" method="post" action="{% url 'glifi' %}">
-    {% csrf_token %}
-      {% for glyph in GLYPHS %}
-      <div style="float: left; width: 10%;">
-          <input id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}" />
-          <img src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}" />
-        </div>
+<div class="row">
+  <div class="col-lg-4">
+    <form id="glyph-filter-form" method="get" action="#">
+      {% csrf_token %}
+      <!-- Render the semantic categories field -->
+      <div class="row">
+        <h4>{{ FORM.categorieSemantiche.label }}</h4>
+      </div>
+      <div class="row">
+        <div class="col">
+          {% for choice in FORM.categorieSemantiche %}
+          <div class="round-gray-button">
+            {{ choice.tag }}
+            <label for="{{ choice.id_for_label }}"><h6>{{ choice.choice_label }}</h6></label>
+          </div>
           {% endfor %}
+        </div>
+      </div>
+      <!-- Render the grammatical functions field -->
+      <div class="row">
+        <h4>{{ FORM.funzioniGrammaticali.label }}</h4>
+      </div>
+      <div class="row">
+        <div class="col">
+          {% for choice in FORM.funzioniGrammaticali %}
+          <div class="round-gray-button">
+            {{ choice.tag }}
+            <label for="{{ choice.id_for_label }}"><h6>{{ choice.choice_label }}</h6></label>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <h4>Selected Glyphs</h4>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul id="selectedGlyphsList">
+          {% for glyph in SELECTED_GLYPHS %}
+          <li>"{{ glyph.foreignGlyph.parola }}"</li>
+          {% endfor %}
+        </ul>
       
-  </form>
+      </div>
+    </div>
+    <form id="glyph-downloadall-form" action="{% url 'download_all_images' %}">
+      <input class='dowload-button' type="submit" value='{% trans "Scarica tutti i glifi" %}' />
+    </form>
+  </div> <!-- "col-lg-4" -->
 
-  {% comment %} <form id="glyph-downloadSelection-form" action="{% url 'download_selected_images' %}">
-    <input type="submit" value="Scarica i glifi selezionati" />
-  </form> {% endcomment %}
-  <a href="{% url 'download_selected_images' %}">download_selected_images</a>
+  <div class="col">
+    <!-- Glyphs section -->
+    <div class="row">
+      <div class="col">
+        <form id="glyph-selection-form" method="post" action="#">
+          {% csrf_token %}
+          <div class="row">
+            {% for glyph in GLYPHS %}
+            <div class="col-lg-4 col-6">
+              <div class="card">
+                <input id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}"
+                  style="display: none;" />
+                <label for="{{ glyph.id }}">
+                  <img class="card-img-top" src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}" />
+                </label>
+              </div>
+              {% get_current_language as LANGUAGE_CODE%}
+              {% if LANGUAGE_CODE == "it" %}
+              <h4 class="glyph-label">{{ glyph.parola }}</h4>
+              {% elif LANGUAGE_CODE == "en" %}
+              <h4 class="glyph-label">{{ glyph.parola_ENG }}</h4>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form id="glyph-downloadSelection-form" action="{% url 'download_selected_images' %}">
+          <input class="dowload-button" type="submit" value='{% trans "Scarica i glifi selezionati"%}' />
+        </form>
+      </div>
+    </div>
+  </div> <!-- "col" -->
+</div> <!-- row -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
 
-  <script>
-    $(document).ready(function () {
-      const form = $('#glyph-filter-form')
-    
-      $("input[type='checkbox']", form).on('change', function () {
-        form.submit()
-      })
+
+
+<script>
+  // Autosubmit Form #glyph-filter-form
+
+  $(document).ready(function () {
+    const form = $('#glyph-filter-form')
+
+    $("input[type='checkbox']", form).on('change', function () {
+      form.submit()
     })
-  </script>
-  <script>
-    $(document).ready(function () {
-      const form = $('#glyph-selection-form')
-    
-      $("input[type='checkbox']", form).on('change', function () {
-        form.submit()
-      })
-    })
-  </script>  
+  })
+</script>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+<script>
+  // Autosubmit Form #glyph-selection-form
+  function updateGlyphs() {
+    $.ajax({
+      url: '/ajax_glyphs/',  // Use the new AJAX endpoint
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        // Assuming data is a list of updated glyphs
+        var listItems = data.map(function(glyph) {
+          return '<li>"' + glyph.foreignGlyph.parola + '"</li>';
+        });
 
- {% comment %} <script>
-  $(".checkAllClass").on("change", function() {
-    $('.checkboxClass').not(this).prop('checked', this.checked);
-  });
-  
-  $(".checkboxClass").on("change", function(){
-    var checkboxValues = {};
-    $(".checkboxClass").each(function(){
-      checkboxValues[this.id] = this.checked;
+        // Update the content of the <ul> element
+        $('#selectedGlyphsList').html(listItems.join(''));
+      },
+      error: function(error) {
+        console.log('Error:', error);
+      }
     });
-    $.cookie('checkboxValues', checkboxValues, { expires: 7, path: '/' });
-  });
+  }
+
+
+  $(document).ready(function () {
+    const form = $('#glyph-selection-form');
   
-  function repopulateCheckboxes(){
+    $("input[type='checkbox']", form).on('change', function (event) {
+      // Prevent the default form submission behavior
+      event.preventDefault();
+  
+      // Manually submit the form using AJAX
+      $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(), // Serialize the form data
+        success: function (data) {
+          // Handle the success response if needed
+          console.log('Form submitted successfully');
+  
+          // Trigger the updateGlyphs() function
+          updateGlyphs();
+        },
+        error: function (error) {
+          // Handle the error response if needed
+          console.error('Error submitting the form', error);
+        }
+      });
+    });
+  });
+    
+</script>
+
+<script>
+  // SAVE AND REPOPULATE STATE OF .checkbox-save-state
+  function repopulateCheckboxes() {
     var checkboxValues = $.cookie('checkboxValues');
-    if(checkboxValues){
-      Object.keys(checkboxValues).forEach(function(element) {
+    if (checkboxValues) {
+      Object.keys(checkboxValues).forEach(function (element) {
         var checked = checkboxValues[element];
         $("#" + element).prop('checked', checked);
+
+        // Toggle 'active' class based on checkbox state
+        $("#" + element).closest('.round-gray-button').toggleClass('active', checked);
       });
     }
   }
-  
-  $.cookie.json = true;
-  repopulateCheckboxes();
-  
-</script> {% endcomment %}
+
+  $(document).ready(function () {
+    // Attach change event handler to checkboxes with the specified classes
+    $(".checkbox-save-state").on("change", function () {
+      // Update the cookie values
+      var checkboxValues = {};
+      $(".checkbox-save-state").each(function () {
+        checkboxValues[this.id] = this.checked;
+      });
+      $.cookie('checkboxValues', checkboxValues, {
+        expires: 7,
+        path: '/'
+      });
+
+      // Toggle 'active' class based on checkbox state
+      $(this).closest('.round-gray-button').toggleClass('active', this.checked);
+    });
+
+    // Set the JSON option for the cookie plugin
+    $.cookie.json = true;
+
+    // Repopulate checkboxes and apply styles on page load
+    repopulateCheckboxes();
+  });
+</script>
+
+
 {% endblock %}
