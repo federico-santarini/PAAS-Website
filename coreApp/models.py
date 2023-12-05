@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 
 
 
@@ -9,38 +10,40 @@ from django.core.exceptions import ValidationError
 
 class Glyph(models.Model):
     FIGURE_RETORICHE = [
-        ("Analogia", "Analogia"),
-        ("Letterale", "Letterale"),
-        ("Metonimina", "Metonimina"),
-        ("Sineddoche", "Sineddoche"),
-        ("Simbolico", "Simbolico"),
+        ("Analogia", _("Analogia")),
+        ("Letterale", _("Letterale")),
+        ("Metonimina", _("Metonimina")),
+        ("Sineddoche", _("Sineddoche")),
+        ("Simbolico", _("Simbolico")),
     ]    
     FUNZIONI_GRAMMATICALI = [
-        ("Sostantivo", "Sostantivo"),
-        ("Verbo", "Verbo"),
-        ("Avverbio", "Avverbio"),
-        ("Parola grammaticale", "Parola grammaticale"),
-        ("Aggettivo", "Aggettivo"),
+        ("Sostantivo", _("Sostantivo")),
+        ("Verbo", _("Verbo")),
+        ("Avverbio", _("Avverbio")),
+        ("Parola grammaticale", _("Parola grammaticale")),
+        ("Aggettivo", _("Aggettivo")),
     ]
 
     CATEGORIE_SEMANTICHE = [
-        ("Abbigliamento", "Abbigliamento"),
-        ("Altro", "Altro"),
-        ("Animali", "Animali"),
-        ("Azioni", "Azioni"),
-        ("Bevande", "Bevande"),
-        ("Condizioni metereologiche", "Condizioni metereologiche"),
+        ("Abbigliamento", _("Abbigliamento")),
+        ("Altro", _("Altro")),
+        ("Animali", _("Animali")),
+        ("Azioni", _("Azioni")),
+        ("Bevande", _("Bevande")),
+        ("Condizioni metereologiche", _("Condizioni metereologiche")),
         ("Mestieri", "Mestieri"),
-        ("Mezzi di trasporto", "Mezzi di trasporto"),
-        ("Oggetti", "Oggetti"),
-        ("Saluti", "Saluti"),
-        ("Sostanze", "Sostanze"),
-        ("Sport", "Sport"),
+        ("Mezzi di trasporto", _("Mezzi di trasporto")),
+        ("Oggetti", _("Oggetti")),
+        ("Saluti", _("Saluti")),
+        ("Sostanze", _("Sostanze")),
+        ("Sport", _("Sport")),
+        ("Tempo", _("Tempo")),
     ] 
 
 
     # date/time creation
-    pub_date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     #id
     id = models.IntegerField(primary_key=True, default=0)

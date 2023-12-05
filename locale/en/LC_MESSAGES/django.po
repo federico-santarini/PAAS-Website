@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-23 22:47+0000\n"
-"PO-Revision-Date: 2023-11-23 22:35+0000\n"
+"POT-Creation-Date: 2023-11-28 15:58+0000\n"
+"PO-Revision-Date: 2023-12-04 17:51+0000\n"
 "Last-Translator:   <>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,13 +19,117 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.9.9\n"
 
+#: coreApp/form.py:13
+msgid "Categoria semantica"
+msgstr "Semantic category"
+
+#: coreApp/form.py:20
+msgid "Funzione grammaticale"
+msgstr "Grammatical function"
+
+#: coreApp/models.py:13
+msgid "Analogia"
+msgstr "Analogy"
+
+#: coreApp/models.py:14
+msgid "Letterale"
+msgstr "Literal"
+
+#: coreApp/models.py:15
+msgid "Metonimina"
+msgstr "Metonymine"
+
+#: coreApp/models.py:16
+msgid "Sineddoche"
+msgstr "Synecdoche"
+
+#: coreApp/models.py:17
+msgid "Simbolico"
+msgstr "Symbolic"
+
+#: coreApp/models.py:20
+msgid "Sostantivo"
+msgstr "Noun"
+
+#: coreApp/models.py:21
+msgid "Verbo"
+msgstr "Verb"
+
+#: coreApp/models.py:22
+msgid "Avverbio"
+msgstr "Adverb"
+
+#: coreApp/models.py:23
+msgid "Parola grammaticale"
+msgstr "Grammatical word"
+
+#: coreApp/models.py:24
+msgid "Aggettivo"
+msgstr "Adjective"
+
+#: coreApp/models.py:28
+msgid "Abbigliamento"
+msgstr "Clothing"
+
+#: coreApp/models.py:29
+msgid "Altro"
+msgstr "Other"
+
+#: coreApp/models.py:30
+msgid "Animali"
+msgstr "Animals"
+
+#: coreApp/models.py:31
+msgid "Azioni"
+msgstr "Actions"
+
+#: coreApp/models.py:32
+msgid "Bevande"
+msgstr "Drinks"
+
+#: coreApp/models.py:33
+msgid "Condizioni metereologiche"
+msgstr "Weather conditions"
+
+#: coreApp/models.py:35
+msgid "Mezzi di trasporto"
+msgstr "Means of transport"
+
+#: coreApp/models.py:36
+msgid "Oggetti"
+msgstr "Objects"
+
+#: coreApp/models.py:37
+msgid "Saluti"
+msgstr "Greetings"
+
+#: coreApp/models.py:38
+msgid "Sostanze"
+msgstr "Substances"
+
+#: coreApp/models.py:39
+msgid "Sport"
+msgstr "Sport"
+
 #: coreApp/urls.py:7
 msgid "collabora"
-msgstr "collabora"
+msgstr "collaborate"
 
 #: templates/collabora.html:9
 msgid "PAAS Website - Collabora"
 msgstr "PAAS Website - Collaborate with us"
+
+#: templates/glifi.html:5
+msgid "PAAS Website - Glifi"
+msgstr "PAAS Website - Glyphs"
+
+#: templates/glifi.html:13
+msgid "Scarica tutti i glifi"
+msgstr "Download all glyphs"
+
+#: templates/glifi.html:34
+msgid "Scarica i glifi selezionati"
+msgstr "Download selected glyphs"
 
 #: templates/index.html:12
 msgid ""
@@ -382,8 +486,8 @@ msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/core/validators.py:267
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/core/validators.py:279
@@ -583,15 +687,15 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:1489
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:1497
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:1502
@@ -610,8 +714,8 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:1789
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/db/models/fields/__init__.py:1793
@@ -770,7 +874,8 @@ msgid "Many-to-many relationship"
 msgstr ""
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.9/site-packages/django/forms/boundfield.py:184
 msgid ":?.!"
 msgstr ""
@@ -820,7 +925,8 @@ msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/forms/fields.py:625
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -928,7 +1034,8 @@ msgid "The inline value did not match the parent instance."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/forms/models.py:1429
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/forms/models.py:1568
@@ -1388,11 +1495,11 @@ msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/views/csrf.py:127
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a rel=\"noreferrer"
-"\" …> for links to third-party sites."
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/views/csrf.py:136
@@ -1443,8 +1550,8 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/views/generic/dates.py:652
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/views/generic/dates.py:692
@@ -1500,10 +1607,10 @@ msgstr ""
 #: venv/lib/python3.9/site-packages/django/views/templates/default_urlconf.html:221
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" rel=\"noopener"
-"\">DEBUG=True</a> is in your settings file and you have not configured any "
-"URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
 
 #: venv/lib/python3.9/site-packages/django/views/templates/default_urlconf.html:229
