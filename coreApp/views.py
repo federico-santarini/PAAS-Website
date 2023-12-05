@@ -127,3 +127,16 @@ def download_all_images(request):
     response['Content-Disposition'] = f'attachment; filename=all_glyphs.zip'
 
     return response
+
+from django.http import JsonResponse
+
+def ajax_glyphs_view(request):
+    # Your existing logic to retrieve selected glyphs
+    session_key = request.session.session_key
+    session_instance = Session.objects.get(session_key=session_key)
+    SELECTED_IMAGES_FOR_SESSION = SelectedImage.objects.filter(session=session_instance)
+
+    # Assuming SELECTED_IMAGES_FOR_SESSION is a list of SelectedImage instances
+    data = [{'foreignGlyph': {'parola': selected_image.foreignGlyph.parola}} for selected_image in SELECTED_IMAGES_FOR_SESSION]
+
+    return JsonResponse(data, safe=False)
