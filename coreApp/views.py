@@ -21,15 +21,9 @@ def index(request):
     return render(request, 'index.html')
 
 def glifi(request):
-    # Get the current session key
-    session_key = request.session.session_key
-    session_instance = Session.objects.get(session_key=session_key)
 
-    GLYPHS = Glyph.objects.all().order_by('parola')
-    SELECTED_IMAGES_FOR_SESSION = SelectedImage.objects.filter(session=session_instance)
-    
+    GLYPHS = Glyph.objects.all().order_by('parola')    
     form = GlyphFilterForm(request.GET)
-    
     
     if request.method == "GET":
         if form.is_valid():
@@ -45,29 +39,9 @@ def glifi(request):
             if query_funzioniGrammaticali:
                 GLYPHS = GLYPHS.filter(funzione_grammaticale__in=query_funzioniGrammaticali)
     
-    if request.method == "POST":
-
-        selected_image_ids = request.POST.getlist("selected_images")
-        # for image_id in selected_image_ids:
-        #     selected_image = SelectedImage(foreignGlyph_id=image_id,
-        #                                            session=session_instance)
-        #     selected_image.save()
-
-        for image_id in selected_image_ids:
-            try:
-                SelectedImage.objects.get(foreignGlyph_id=image_id,
-                                          session=session_instance)
-            # Handle the existing entry (e.g., update or skip)
-            except:
-                # Create a new SelectedImage instance
-                selected_image = SelectedImage(foreignGlyph_id=image_id,
-                                               session=session_instance)
-                selected_image.save()
-
     context = {
         'GLYPHS': GLYPHS,
         'FORM': form,
-        "SELECTED_GLYPHS": SELECTED_IMAGES_FOR_SESSION,
     }
 
     return render(request, 'glifi.html', context)
