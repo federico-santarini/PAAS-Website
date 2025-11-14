@@ -21,31 +21,38 @@ def index(request):
     return render(request, 'index.html')
 
 def glifi(request):
+    glyphs = Glyph.objects.all().order_by('parola')
+    form = GlyphFilterForm(request.GET or None)
 
-    GLYPHS = Glyph.objects.all().order_by('parola')    
-    form = GlyphFilterForm(request.GET)
-    
-    if request.method == "GET":
-        if form.is_valid():
-            query_search = form.cleaned_data.get('search')
-            if query_search:
-                GLYPHS = GLYPHS.filter(parola__icontains = query_search)
-                
-            query_categorieSemantiche = form.cleaned_data["categorieSemantiche"]            
-            if query_categorieSemantiche:
-                GLYPHS = GLYPHS.filter(categoria_semantica__in=query_categorieSemantiche)
-            
-            query_funzioniGrammaticali = form.cleaned_data["funzioniGrammaticali"]
-            if query_funzioniGrammaticali:
-                GLYPHS = GLYPHS.filter(funzione_grammaticale__in=query_funzioniGrammaticali)
-    
+    if form.is_valid():
+        search = form.cleaned_data.get('search')
+        categories = form.cleaned_data.get('categorieSemantiche')
+        functions = form.cleaned_data.get('funzioniGrammaticali')
+
+        # --- Filtraggio testuale dipendente dalla lingua ---
+        if search:
+            lang = get_language() or request.LANGUAGE_CODE or 'it'   # fallback 'it'
+            if lang.startswith('en'):
+                glyphs = glyphs.filter(parola_ENG__icontains=search)
+            else:
+                # considera qualunque lingua non-inglese come italiana
+                glyphs = glyphs.filter(parola__icontains=search)
+        if categories:
+            glyphs = glyphs.filter(categoria_semantica__in=categories)
+        if functions:
+            glyphs = glyphs.filter(funzione_grammaticale__in=functions)
+
     context = {
-        'GLYPHS': GLYPHS,
+        'GLYPHS': glyphs,
         'FORM': form,
     }
 
-    return render(request, 'glifi.html', context)
-
+    # Check if this is an AJAX request
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'glyphs_list.html', context)
+    else:
+        return render(request, 'glifi.html', context)
+    
 def collabora(request):
     return render(request, 'collabora.html')
 

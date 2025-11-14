@@ -8,20 +8,19 @@
   }
 </style>
 
-<!-- Render the search field -->
-<div class="row">
-  <label for="{{ FORM.search.id_for_label }}">
-    <h4>Ricerca per parola</h4>
-  </label>
-</div>
-<div class="row">
-  {{ FORM.search }}
-</div>
-
 <div class="row">
   <div class="col-lg-4">
     <form id="glyph-filter-form" method="get" action="#">
       {% csrf_token %}
+      <div class="row">
+        <label for="{{ FORM.search.id_for_label }}">
+          <h4>Ricerca per parola</h4>
+        </label>
+      </div>
+      <div class="row">
+        {{ FORM.search }}
+      </div>
+
       <!-- Render the semantic categories field -->
       <div class="row">
         <h4>{{ FORM.categorieSemantiche.label }}</h4>
@@ -38,6 +37,7 @@
           {% endfor %}
         </div>
       </div>
+
       <!-- Render the grammatical functions field -->
       <div class="row">
         <h4>{{ FORM.funzioniGrammaticali.label }}</h4>
@@ -65,25 +65,9 @@
     <!-- Glyphs section -->
     <div class="row">
       <div class="col">
-          <div class="row">
-            {% for glyph in GLYPHS %}
-            <div class="col-lg-4 col-6">
-              <div class="card">
-                <input id="{{ glyph.id }}" type="checkbox" name="selected_images" value="{{ glyph.id }}"
-                  style="display: none;" />
-                <a href="{{ glyph.glyphFile.url }}" download="{{ glyph.parola }}">
-                  <img class="card-img-top" src="{{ glyph.glyphFile.url }}" alt="{{ glyph.parola }}" />
-                </a>
-              </div>
-              {% get_current_language as LANGUAGE_CODE%}
-              {% if LANGUAGE_CODE == "it" %}
-              <h4 class="glyph-label">{{ glyph.parola }}</h4>
-              {% elif LANGUAGE_CODE == "en" %}
-              <h4 class="glyph-label">{{ glyph.parola_ENG }}</h4>
-              {% endif %}
-            </div>
-            {% endfor %}
-          </div>
+        <div class="row" id="glyphs-container">
+          {% include 'glyphs_list.html' %}
+        </div>
       </div>
     </div>
     <div class="row">
@@ -96,18 +80,29 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
 
-
-
 <script>
-  // Autosubmit Form #glyph-filter-form
+  $(document).ready(function() {
+    const form = $('#glyph-filter-form');
 
-  $(document).ready(function () {
-    const form = $('#glyph-filter-form')
+    function updateGlyphs() {
+        $.ajax({
+            url: '',  // Current page URL
+            type: 'GET',
+            data: form.serialize(),  // Serialize all inputs
+            success: function(response) {
+                $('#glyphs-container').html(response);
+            },
+            error: function(xhr) {
+                console.error('AJAX request failed:', xhr);
+            }
+        });
+    }
 
-    $("input[type='checkbox']", form).on('change', function () {
-      form.submit()
-    })
-  })
+    // Trigger AJAX on search input and checkbox changes
+    form.on('change keyup', "input, select", updateGlyphs);
+
+    // Optional: initial load
+    updateGlyphs();
+});
 </script>
-
 {% endblock %}
